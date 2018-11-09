@@ -1,0 +1,10 @@
+---
+# playbook.yml file.
+- hosts: all
+  become: yes
+  roles:
+   - sysctl
+   - packages
+   - liquidprompt
+   - php-fpm
+  tags: initial

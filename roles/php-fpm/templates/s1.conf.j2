@@ -1,0 +1,19 @@
+	# Default website
+	server {
+
+		listen 80 default_server;
+		server_name _;
+		server_name_in_redirect off;
+
+		index index.php;
+		root /home/bitrix/www;
+
+		# Redirect to ssl if need
+		if (-f /home/bitrix/www/.htsecure) { rewrite ^(.*)$ https://$host$1 permanent; }
+
+		# Include parameters common to all websites
+		include bx/conf_fpm/bitrix.conf;
+
+		# Include server monitoring locations
+		include bx/server_monitor.conf;
+	}

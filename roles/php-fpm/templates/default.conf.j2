@@ -1,0 +1,66 @@
+[default]
+listen = /var/run/php-fpm/default.sock
+listen.owner = bitrix
+listen.group = bitrix
+listen.mode = 0660
+user = bitrix
+group = bitrix
+
+pm = {{process manager | default dynamic}}
+
+{% if {{ pm_max_children }} == auto %}
+  {% if ansible_memtotal_mb <= 512 %}
+pm_max_children = 4
+  {% endif %}
+  {% if ansible_memtotal_mb > 512 and <= 1024 %}
+pm_max_children = 6
+  {% endif %}
+  {% if ansible_memtotal_mb > 1024 and <= 1536 %}
+pm_max_children = 8
+  {% endif %}
+  {% if ansible_memtotal_mb > 1536 and <= 2048 %}
+pm_max_children = 10
+  {% endif %}
+  {% if ansible_memtotal_mb > 2048 and <= 3072 %}
+pm_max_children = 12
+  {% endif %}
+  {% if ansible_memtotal_mb > 3072 and <= 4096 %}
+pm_max_children = 16
+  {% endif %}
+  {% if ansible_memtotal_mb > 4096 and <= 5120 %}
+pm_max_children = 18
+  {% endif %}
+  {% if ansible_memtotal_mb > 5120 and <= 6144 %}
+pm_max_children = 20
+  {% endif %}
+  {% if ansible_memtotal_mb > 6144 and <= 8192 %}
+pm_max_children = 24
+  {% endif %}
+  {% if ansible_memtotal_mb > 8192 and <= 16384 %}
+pm_max_children = 48
+  {% endif %}
+  {% if ansible_memtotal_mb > 16384 and <= 24576 %}
+pm_max_children = 60
+  {% endif %}
+  {% if ansible_memtotal_mb > 24576 and <= 32768 %}
+pm_max_children = 80
+  {% endif %}
+  {% if ansible_memtotal_mb > 32768 and <= 65536 %}
+pm_max_children = 120
+  {% endif %}
+  {% if ansible_memtotal_mb > 65536 %}
+pm_max_children = 180
+  {% endif %}
+{% else %}
+pm_max_children: {{ pm_max_children }}
+{% endif %}
+
+pm.start_servers = {% if pm.start_servers | pm_max_children|int / 2 %}
+pm.min_spare_servers = {{ pm.min_spare_servers|default(1) }}
+pm.max_spare_servers = {{ pm.max_spare_servers|default(10) }}
+pm.max_requests = {{ pm.max_requests|default(500) }}
+
+pm.status_path = /status
+ping.path = /ping
+ping.response = pong
+

@@ -1,0 +1,8 @@
+---
+#Installing nginx web server server from YUM
+- include: default.yml
+  when: "default_site is defined"
+
+- include: kibana.yml
+  when: "default_site is not defined"
+

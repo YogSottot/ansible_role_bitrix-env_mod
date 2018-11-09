@@ -1,0 +1,33 @@
+---
+- name: Install php-fpm and deps
+  yum:
+   name: 
+    - php-fpm
+   state: present
+  notify: php-fpm restarted
+
+- name: Make override dir for service php-fpm
+  file:
+   path: /etc/systemd/system/php-fpm.service.d
+   state: directory
+
+- name: Enable autorestart of services
+  copy:
+   src: override.conf
+   dest: /etc/systemd/system/php-fpm.service.d/override.conf
+
+- name: Enable php settings override
+  copy:
+   src: z_bx_custom.ini
+   dest: /etc/php.d/z_bx_custom.ini
+
+#- name: selinux
+#  include: selinux.yml
+
+- name: Disable default pool
+  command: mv /etc/php-fpm.d/www.conf /etc/php-fpm.d/www.disabled creates=/etc/php-fpm.d/www.disabled
+  notify: reload php-fpm
+
+- name: Copy php-fpm configuration
+  template: src=default.conf.j2 dest=/etc/php-fpm.d/
+  notify: reload php-fpm
