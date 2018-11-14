@@ -1,10 +1,10 @@
 ---
-- name: Install packages
+- name: Install epel-release
   yum:
-   name: ['epel-release']
+   name: epel-release
    state: present
 
-- name: Install packages
+- name: Install standart packages
   yum:
-   name: ['htop', 'ncdu', 'iotop', 'iftop', 'bind-utils', 'traceroute', 'mc', 'nano', 'tmux', 'bash-completion', 'bash-completion-extras', 'yum-utils', 'deltarpm', 'lsof', 'gdb', 'curl', 'wget', 'git', 'net-tools', 'iperf', 'nmap', 'setools-console', 'policycoreutils-python', 'psmisc']
+   name: "{{ standart_packages }}"
    state: present

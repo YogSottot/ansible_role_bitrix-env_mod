@@ -1,0 +1,26 @@
+---
+standart_packages:
+ - bash-completion
+ - bash-completion-extras
+ - bind-utils
+ - curl
+ - deltarpm
+ - gdb
+ - git
+ - htop
+ - iftop
+ - iotop
+ - iperf
+ - lsof
+ - mc
+ - nano
+ - ncdu
+ - net-tools
+ - nmap
+ - policycoreutils-python
+ - psmisc
+ - setools-console
+ - tmux
+ - traceroute
+ - wget 
+ - yum-utils
