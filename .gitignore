@@ -1,2 +1,4 @@
 ansible.cfg
 hosts.ini
+hosts.yml
+/inventory

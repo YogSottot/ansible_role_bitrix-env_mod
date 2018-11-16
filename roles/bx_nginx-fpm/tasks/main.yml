@@ -1,8 +1,27 @@
 ---
-#Installing nginx web server server from YUM
+#installing nginx web server server from yum
 - include: default.yml
   when: "default_site is defined"
 
 - include: kibana.yml
   when: "default_site is not defined"
 
+- name: test
+  copy:
+   src:
+   dest:
+   back:
+
+- name: name for copy module.
+  copy:
+   dest: "#"
+   src: "{{  }}"
+
+- name:
+  template:
+       dest: tesm.ini.j2
+       src: /etc/ini.ini
+       backup: yes
+
+- name
+  
