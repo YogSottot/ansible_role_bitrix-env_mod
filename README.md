@@ -13,3 +13,5 @@ TO DO:
 - Протестировать шаблон memcache + composite  
 - Создать роли на базе useful_scripts  
 
+https://github.com/leucos/ansible-tuto
+https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html
