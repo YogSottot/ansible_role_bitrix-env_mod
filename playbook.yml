@@ -1,10 +1,34 @@
 ---
 # playbook.yml file.
 - hosts: all
+  vars:
+   var1:
+    - test
+    - 1
+    - 5
+    - 6
   become: yes
   roles:
-   - sysctl
-   - packages
-   - liquidprompt
-   - php-fpm
+   #- sysctl
+   #- packages
+   #- liquidprompt
+   #- php-fpm
+   - test
   tags: initial
+  tasks:
+  - debug: var=ansible_facts['default_ipv4']['address']
+  - debug: var=playbook_dir
+  - debug: var={{ 60 | random(seed=inventory_hostname) | pow(2) |int}}
+  - debug: var=inventory_hostname
+
+
+#jinja2: trim_blocks: "true", lstrip_blocks: "false"
+
+# Allow include_tasks to take wildcard
+# include_tasks: '{{item}}'
+# loop: "{{ lookup('fileglob'  'dir/*.yml' ) }}"
+
+#{% for key, value in my_dict.iteritems() %}
+#    <dt>{{ key|e }}</dt>
+#    <dd>{{ value|e }}</dd>
+#{% endfor %}
